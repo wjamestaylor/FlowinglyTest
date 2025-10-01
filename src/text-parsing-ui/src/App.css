@@ -1,38 +1,400 @@
-.App {
-  text-align: center;
+/* Text Parsing App Styles */
+
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header */
+.app-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-description {
+  font-size: 16px;
+  color: #6c757d;
+  margin: 0 0 16px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* API Status */
+.api-status {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.api-status.checking {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.api-status.connected {
+  background: #d4edda;
+  color: #155724;
+}
+
+.api-status.disconnected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.retry-button {
+  background: #007bff;
   color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.retry-button:hover {
+  background: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Main Content */
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Input Section */
+.input-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.input-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.input-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.sample-button {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sample-button:hover:not(:disabled) {
+  background: #5a6268;
+}
+
+.sample-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Text Input */
+.text-input {
+  width: 100%;
+  min-height: 240px;
+  padding: 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s;
+  background: #fafafa;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: #007bff;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.text-input:disabled {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.text-input::placeholder {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 120px;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.submit-button:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.clear-button {
+  background: white;
+  color: #6c757d;
+  border: 2px solid #6c757d;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clear-button:hover:not(:disabled) {
+  background: #6c757d;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.clear-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Input Help */
+.input-help {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+}
+
+.input-help p {
+  margin: 0 0 8px 0;
+  color: #495057;
+}
+
+.input-help ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #6c757d;
+}
+
+.input-help li {
+  margin-bottom: 4px;
+}
+
+.input-help code {
+  background: #e9ecef;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Instructions */
+.instructions {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.instructions h2 {
+  color: #2c3e50;
+  margin: 0 0 24px 0;
+  font-size: 24px;
+}
+
+.instruction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.instruction-item {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.instruction-item h3 {
+  color: #495057;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
+
+.instruction-item p {
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.instruction-item code {
+  background: #e9ecef;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 24px 16px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .app-title {
+    font-size: 24px;
+  }
+
+  .app-description {
+    font-size: 14px;
+  }
+
+  .app-main {
+    padding: 16px;
+  }
+
+  .input-section {
+    padding: 16px;
+  }
+
+  .input-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .submit-button,
+  .clear-button {
+    width: 100%;
+  }
+
+  .instruction-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .instructions {
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-input {
+    min-height: 200px;
+    font-size: 16px;
+    /* Prevent zoom on iOS */
+  }
+
+  .app-title {
+    font-size: 20px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  .submit-button,
+  .clear-button,
+  .text-input {
+    transition: none;
+  }
+
+  .submit-button:hover,
+  .clear-button:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .app {
+    background: #000;
+    color: #fff;
+  }
+
+  .input-section,
+  .instructions {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
   }
 }

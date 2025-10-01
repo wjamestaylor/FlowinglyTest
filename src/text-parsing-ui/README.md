@@ -1,8 +1,24 @@
-# Getting Started with Create React App
+# Text Parsing & XML Extraction - React Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React TypeScript frontend application for parsing text content and extracting XML data from email-like messages with automatic tax calculation.
 
-## Available Scripts
+## 🎯 Features
+
+### Core Functionality (Meeting Original Requirements)
+- ✅ **Text Input Area**: Large textarea for pasting email/text content
+- ✅ **Submit & Clear Buttons**: As specified in original requirements  
+- ✅ **JSON Output Display**: Structured display of parsed results
+- ✅ **Validation Error Handling**: Clear error messages for parsing failures
+- ✅ **REST API Integration**: Connects to .NET 8 Web API backend
+
+### Enhanced User Experience
+- **Sample Data Loading**: Quick test with pre-loaded example
+- **API Connection Status**: Real-time connection monitoring
+- **Loading States**: Professional loading spinners during processing
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Keyboard Shortcuts**: Ctrl+Enter for quick submission
+
+## 🚀 Quick Start
 
 In the project directory, you can run:
 

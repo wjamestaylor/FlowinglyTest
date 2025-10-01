@@ -1,0 +1,55 @@
+.error-display {
+  background: linear-gradient(135deg, #fee, #fdd);
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.error-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.error-title {
+  color: #721c24;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.error-list {
+  margin: 0;
+  padding-left: 20px;
+  color: #721c24;
+}
+
+.error-item {
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.error-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Compact variant */
+.error-display.compact {
+  padding: 12px;
+  margin: 8px 0;
+}
+
+.error-display.compact .error-title {
+  font-size: 14px;
+}
+
+.error-display.compact .error-list {
+  font-size: 14px;
+}
