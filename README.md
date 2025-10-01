@@ -137,8 +137,8 @@ Parses text content and extracts XML/tagged data.
 
 ## 🧮 Tax Calculation
 
-- **Tax Rate**: 15.38% (NZ GST equivalent)
-- **Formula**: `Tax Amount = Total × (15.38 ÷ 115.38)`
+- **Tax Rate**: 15% (NZ GST)
+- **Formula**: `Tax Amount = Total × (15 ÷ 115)`
 - **Total Excl. Tax**: `Total Including Tax - Tax Amount`
 
 ## 🧪 Testing Strategy
