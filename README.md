@@ -113,7 +113,7 @@ npm install && npm start
 
 ## 🎨 **Live Demo**
 
-![Application Screenshot](https://via.placeholder.com/800x400/264653/ffffff?text=Text+Parsing+Application+Demo)
+![Application Screenshot](src/text-parsing-ui/public/AppExampleImage.png)
 
 ### **Sample Input**
 ```
