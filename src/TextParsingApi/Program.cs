@@ -27,9 +27,19 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "http://localhost:3001")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        if (builder.Environment.IsDevelopment())
+        {
+            policy.WithOrigins("http://localhost:3000", "http://localhost:3001")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        }
+        else
+        {
+            // In production, the React app is served from the same origin
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        }
     });
 });
 
@@ -48,7 +58,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("ReactApp");
+
+// Serve static files (React app)
+app.UseStaticFiles();
+
 app.UseAuthorization();
 app.MapControllers();
+
+// Fallback routing for React SPA
+app.MapFallbackToFile("index.html");
 
 app.Run();
