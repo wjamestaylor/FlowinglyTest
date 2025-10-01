@@ -111,7 +111,7 @@ npm install && npm start
 
 ---
 
-## 🎨 **Live Demo**
+## 🎨 **Demo**
 
 ![Application Screenshot](src/text-parsing-ui/public/AppExampleImage.png)
 
