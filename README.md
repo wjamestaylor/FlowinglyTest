@@ -280,7 +280,7 @@ FlowinglyTest/
 </tr>
 </table>
 
-### **� Development Commands**
+### **Development Commands**
 ```bash
 # Backend development
 dotnet watch run          # Hot reload API
@@ -310,7 +310,7 @@ npm run build           # Production build
 
 ---
 
-## �️ **Technology Stack**
+## **Technology Stack**
 
 <div align="center">
 
