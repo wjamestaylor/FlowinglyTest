@@ -56,11 +56,18 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+// Only use HTTPS redirection in development
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseCors("ReactApp");
 
 // Serve static files (React app)
 app.UseStaticFiles();
+
+// Add simple root health endpoint for Railway
+app.MapGet("/health", () => new { Status = "Healthy", Timestamp = DateTime.UtcNow });
 
 app.UseAuthorization();
 app.MapControllers();
