@@ -20,7 +20,7 @@
 
 ---
 
-## 🎯 **Challenge Overview**
+## **Challenge Overview**
 
 This enterprise-grade text parsing application intelligently extracts structured data from unstructured email content, featuring:
 
@@ -28,7 +28,7 @@ This enterprise-grade text parsing application intelligently extracts structured
 <tr>
 <td width="50%">
 
-### 🔍 **Core Features**
+### **Core Features**
 - **XML Block Extraction**: Complete embedded XML islands
 - **Tagged Field Parsing**: Individual tag pairs
 - **Tax Calculation**: NZ GST (15%) calculations  
@@ -49,7 +49,7 @@ This enterprise-grade text parsing application intelligently extracts structured
 </tr>
 </table>
 
-## 🏗️ Architecture
+## **Architecture**
 
 ```
 FlowinglyTest/
@@ -70,7 +70,7 @@ FlowinglyTest/
 
 ---
 
-## 🚀 **Quick Start**
+## **Quick Start**
 
 ### **Prerequisites**
 ```bash
@@ -80,7 +80,7 @@ Node.js 18+   ✓
 Git           ✓
 ```
 
-### **🎯 One-Command Setup**
+### **One-Command Setup**
 
 <table>
 <tr>
@@ -91,7 +91,7 @@ Git           ✓
 cd src/TextParsingApi
 dotnet run
 ```
-🌐 **API**: `http://localhost:5230`
+**API**: `http://localhost:5230`
 
 </td>
 <td>
@@ -101,17 +101,17 @@ dotnet run
 cd src/text-parsing-ui
 npm install && npm start
 ```
-🖥️ **UI**: `http://localhost:3001`
+**UI**: `http://localhost:3001`
 
 </td>
 </tr>
 </table>
 
-> **💡 Pro Tip**: Run both simultaneously in separate terminals for full-stack development
+> **Pro Tip**: Run both simultaneously in separate terminals for full-stack development
 
 ---
 
-## 🎨 **Demo**
+## **Demo**
 
 ![Application Screenshot](src/text-parsing-ui/public/AppExampleImage.png)
 
@@ -139,7 +139,7 @@ Please book <vendor>Seaside Steakhouse</vendor> for <date>27 April 2022</date>
 
 ---
 
-## 🔌 **API Documentation**
+## **API Documentation**
 
 ### **Core Endpoint**
 
@@ -185,18 +185,18 @@ Please book <vendor>Seaside Steakhouse</vendor> for <date>27 April 2022</date>
 
 ---
 
-## ⚙️ **Intelligent Validation System**
+## **Intelligent Validation System**
 
 <div style="background: linear-gradient(135deg, #264653 0%, #2a9d8f 100%); padding: 20px; border-radius: 10px; color: white; margin: 20px 0;">
 
-### **🛡️ Built-in Rules**
+### **Built-in Rules**
 | Validation | Behavior | Configurable |
 |------------|----------|-------------|
 | **Unclosed XML tags** | ❌ Reject message | ✅ |
 | **Missing `<total>`** | ❌ Reject message | ✅ |
 | **Missing `<cost_centre>`** | ✅ Default: "UNKNOWN" | ✅ |
 
-### **🔧 Extensible Configuration**
+### **Extensible Configuration**
 ```csharp
 // Add custom validation rules at runtime
 validationConfig.FieldRules.Add(new FieldValidationRule
@@ -212,7 +212,7 @@ validationConfig.FieldRules.Add(new FieldValidationRule
 
 ---
 
-## 📊 **Project Architecture**
+## **Project Architecture**
 
 ```mermaid
 graph TD
@@ -235,21 +235,21 @@ graph TD
     style F fill:#2a9d8f,stroke:#264653,color:#fff
 ```
 
-### **📁 Solution Structure**
+### **Solution Structure**
 ```
 FlowinglyTest/
-├── 🎨 src/text-parsing-ui/          # React TypeScript Frontend
+├── src/text-parsing-ui/          # React TypeScript Frontend
 │   ├── src/components/              # Reusable UI components  
 │   ├── src/services/               # API integration layer
 │   ├── src/types/                  # TypeScript definitions
 │   └── public/                     # Static assets & Flowingly branding
-├── ⚙️ src/TextParsingApi/           # .NET 8 Web API Backend
+├── src/TextParsingApi/           # .NET 8 Web API Backend
 │   ├── Controllers/                # REST API endpoints
 │   ├── Services/                   # Business logic layer
 │   ├── Models/                     # Data models & DTOs
 │   ├── Validation/                 # Extensible validation system
 │   └── Tests/                      # Comprehensive test suite
-└── 📚 Documentation/               # Technical documentation
+└── Documentation/               # Technical documentation
 ```
 
 ---
@@ -294,11 +294,11 @@ npm run build           # Production build
 
 ---
 
-## 💰 **Tax Calculation Engine**
+## **Tax Calculation Engine**
 
 <div align="center">
 
-### **🇳🇿 New Zealand GST (15%)**
+### **New Zealand GST (15%)**
 
 | Component | Formula | Example |
 |-----------|---------|---------|
@@ -333,7 +333,7 @@ npm run build           # Production build
 
 ---
 
-## 🎯 **Success Metrics**
+## **Success Metrics**
 
 <table>
 <tr>
@@ -366,7 +366,7 @@ npm run build           # Production build
 
 <div align="center">
 
-## 🏢 **About This Project**
+## **About This Project**
 
 <img src="src/text-parsing-ui/public/cropped-Logomark-32x32.webp" alt="Flowingly Favicon" width="32" height="32">
 
@@ -376,7 +376,7 @@ This application demonstrates modern full-stack development practices, clean arc
 
 ---
 
-### **🎨 Brand Guidelines**
+### **Brand Guidelines**
 - **Primary Color**: Blue Dianne `#264653`
 - **Secondary Color**: Teal `#2a9d8f`  
 - **Typography**: Clean, modern sans-serif
