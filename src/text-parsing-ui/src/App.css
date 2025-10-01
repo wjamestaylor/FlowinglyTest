@@ -1,4 +1,5 @@
-/* Text Parsing App Styles */
+/* Text Parsing App Styles - Flowingly Theme */
+/* Primary brand color: Blue Dianne #264653 */
 
 * {
   box-sizing: border-box;
@@ -6,7 +7,7 @@
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #264653 0%, #2a9d8f 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -23,10 +24,61 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.app-title {
+/* Header Container - Three Column Layout */
+.header-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.company-logo {
+  height: 48px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  .header-left,
+  .header-right {
+    justify-content: center;
+  }
+  
+  .company-logo {
+    height: 40px;
+  }
+}.app-title {
   font-size: 32px;
   font-weight: 700;
-  color: #2c3e50;
+  color: #264653;
   margin: 0 0 8px 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -57,8 +109,8 @@
 }
 
 .api-status.connected {
-  background: #d4edda;
-  color: #155724;
+  background: #d1e7dd;
+  color: #0f5132;
 }
 
 .api-status.disconnected {
@@ -116,7 +168,7 @@
 }
 
 .sample-button {
-  background: #6c757d;
+  background: #2a9d8f;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -127,7 +179,7 @@
 }
 
 .sample-button:hover:not(:disabled) {
-  background: #5a6268;
+  background: #238074;
 }
 
 .sample-button:disabled {
@@ -175,7 +227,7 @@
 }
 
 .submit-button {
-  background: linear-gradient(135deg, #007bff, #0056b3);
+  background: linear-gradient(135deg, #264653, #1a3238);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -188,9 +240,9 @@
 }
 
 .submit-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #0056b3, #004085);
+  background: linear-gradient(135deg, #1a3238, #0f1f22);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(38, 70, 83, 0.3);
 }
 
 .submit-button:disabled {

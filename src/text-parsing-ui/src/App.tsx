@@ -112,10 +112,24 @@ William`;
   return (
     <div className="app">
       <header className="app-header">
-        <h1 className="app-title">Text Parsing & XML Extraction</h1>
-        <p className="app-description">
-          Extract XML blocks and tagged fields from email-like content with automatic tax calculation
-        </p>
+        <div className="header-container">
+          <div className="header-left">
+            <img
+              src="/flowingly-logo.svg"
+              alt="Flowingly Logo"
+              className="company-logo"
+            />
+          </div>
+          <div className="header-center">
+            <h1 className="app-title">Text Parsing & XML Extraction</h1>
+            <p className="app-description">
+              Extract XML blocks and tagged fields from email-like content with automatic tax calculation
+            </p>
+          </div>
+          <div className="header-right">
+            {/* Reserved for future elements */}
+          </div>
+        </div>
 
         {/* API Connection Status */}
         <div className={`api-status ${apiConnected === null ? 'checking' : apiConnected ? 'connected' : 'disconnected'}`}>
