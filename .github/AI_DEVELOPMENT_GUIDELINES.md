@@ -31,6 +31,10 @@ Validation: Strict rules for malformed content
    - Missing `<total>` → Reject entire message
    - Unclosed tags → Reject entire message  
    - Missing `<cost_centre>` → Default to "UNKNOWN"
+4. **Extensible Validation**: System supports runtime addition of:
+   - New required fields with custom error messages
+   - Default values for optional fields
+   - Custom validation logic with lambda expressions
 
 ### **Success Metrics for AI Implementation**
 - ✅ **Functional**: All challenge requirements working correctly
@@ -58,6 +62,16 @@ public class ParseResult
     public TaxCalculation Calculations { get; set; }
     public bool IsValid { get; set; }
     public List<string> Errors { get; set; } = new();
+}
+
+// ✅ Good: Extensible validation configuration
+public class FieldValidationRule
+{
+    public string FieldName { get; set; } = string.Empty;
+    public bool IsRequired { get; set; }
+    public string? DefaultValue { get; set; }
+    public string? CustomErrorMessage { get; set; }
+    public Func<string, bool>? CustomValidator { get; set; }
 }
 
 // ❌ Avoid: Mixing concerns in controllers

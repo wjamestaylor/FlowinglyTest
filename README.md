@@ -19,6 +19,7 @@ FlowinglyTest/
 │   │   ├── Controllers/         # REST API endpoints
 │   │   ├── Models/             # Data models & DTOs
 │   │   ├── Services/           # Business logic
+│   │   ├── Validation/         # Extensible validation system
 │   │   └── Tests/              # Unit tests
 │   └── text-parsing-ui/        # React TypeScript frontend
 │       ├── src/
@@ -129,11 +130,48 @@ Parses text content and extracts XML/tagged data.
 
 ## ⚠️ Validation Rules
 
+### Core Validation Rules
 | Rule | Behavior |
 |------|----------|
 | **Unclosed tags** | Reject entire message |
 | **Missing `<total>`** | Reject entire message |
 | **Missing `<cost_centre>`** | Default to "UNKNOWN" |
+
+### 🔧 Extensible Validation System
+
+The validation system is designed for easy extension and configuration:
+
+**Add New Required Fields:**
+```csharp
+var validationConfig = new ValidationConfiguration();
+validationConfig.FieldRules.Add(new FieldValidationRule
+{
+    FieldName = "currency",
+    IsRequired = true,
+    CustomErrorMessage = "Currency is required for all transactions"
+});
+```
+
+**Add Default Values:**
+```csharp
+validationConfig.FieldRules.Add(new FieldValidationRule
+{
+    FieldName = "department",
+    IsRequired = false,
+    DefaultValue = "GENERAL"
+});
+```
+
+**Custom Validators:**
+```csharp
+validationConfig.FieldRules.Add(new FieldValidationRule
+{
+    FieldName = "priority",
+    IsRequired = true,
+    CustomValidator = value => int.TryParse(value, out int p) && p >= 1 && p <= 5,
+    CustomErrorMessage = "Priority must be 1-5"
+});
+```
 
 ## 🧮 Tax Calculation
 

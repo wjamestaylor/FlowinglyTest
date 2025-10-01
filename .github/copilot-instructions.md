@@ -193,6 +193,40 @@ public class TaxCalculator
 3. **Missing `<cost_centre>`**: Default to "UNKNOWN"
 4. **Malformed XML**: Graceful error handling
 
+### **Extensible Validation System**
+The application features a fully configurable validation system:
+
+```csharp
+// Add new required fields
+validationConfig.FieldRules.Add(new FieldValidationRule
+{
+    FieldName = "currency",
+    IsRequired = true,
+    CustomErrorMessage = "Currency is required"
+});
+
+// Add default values
+validationConfig.FieldRules.Add(new FieldValidationRule
+{
+    FieldName = "department",
+    DefaultValue = "GENERAL"
+});
+
+// Custom validation logic
+validationConfig.FieldRules.Add(new FieldValidationRule
+{
+    FieldName = "priority",
+    CustomValidator = value => int.TryParse(value, out int p) && p >= 1 && p <= 5,
+    CustomErrorMessage = "Priority must be 1-5"
+});
+```
+
+**Key Components:**
+- `FieldValidationRule`: Individual field rules with custom logic
+- `ValidationConfiguration`: Central rule container
+- `ValidationRules`: Runtime rule management service
+- **Runtime Modification**: Add/remove rules during application lifetime
+
 ## 🚀 Performance Considerations
 
 ### **Backend Optimizations**
