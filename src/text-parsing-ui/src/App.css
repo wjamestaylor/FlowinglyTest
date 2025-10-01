@@ -66,16 +66,18 @@
     gap: 16px;
     text-align: center;
   }
-  
+
   .header-left,
   .header-right {
     justify-content: center;
   }
-  
+
   .company-logo {
     height: 40px;
   }
-}.app-title {
+}
+
+.app-title {
   font-size: 32px;
   font-weight: 700;
   color: #264653;
