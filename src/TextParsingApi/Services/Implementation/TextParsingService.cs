@@ -11,13 +11,16 @@ public class TextParsingService : ITextParsingService
 {
     private readonly IXmlParsingService _xmlParsingService;
     private readonly ITaxCalculationService _taxCalculationService;
+    private readonly ValidationRules _validationRules;
 
     public TextParsingService(
         IXmlParsingService xmlParsingService,
-        ITaxCalculationService taxCalculationService)
+        ITaxCalculationService taxCalculationService,
+        ValidationRules validationRules)
     {
         _xmlParsingService = xmlParsingService;
         _taxCalculationService = taxCalculationService;
+        _validationRules = validationRules;
     }
 
     /// <summary>
@@ -43,16 +46,16 @@ public class TextParsingService : ITextParsingService
             result.TaggedFields = await _xmlParsingService.ExtractTaggedFieldsAsync(content);
 
             // Step 3: Apply validation rules
-            var missingRequiredTags = ValidationRules.GetMissingRequiredTags(result.XmlBlocks, result.TaggedFields);
-            if (missingRequiredTags.Any())
+            var missingRequiredFields = _validationRules.GetMissingRequiredFields(result.XmlBlocks, result.TaggedFields);
+            if (missingRequiredFields.Any())
             {
                 result.IsValid = false;
-                result.Errors.Add($"{ValidationRules.MISSING_TOTAL_ERROR}");
+                result.Errors.AddRange(missingRequiredFields);
                 return result;
             }
 
-            // Step 4: Apply default values for optional tags
-            ValidationRules.ApplyDefaultValues(result.XmlBlocks, result.TaggedFields);
+            // Step 4: Apply default values for optional fields
+            _validationRules.ApplyDefaultValues(result.XmlBlocks, result.TaggedFields);
 
             // Step 5: Calculate tax if total amount is available
             var totalAmount = _taxCalculationService.ExtractTotalAmount(result.XmlBlocks, result.TaggedFields);
@@ -63,7 +66,7 @@ public class TextParsingService : ITextParsingService
             else
             {
                 result.IsValid = false;
-                result.Errors.Add(ValidationRules.INVALID_TOTAL_FORMAT_ERROR);
+                result.Errors.Add(_validationRules.GetMessages().InvalidTotalFormatError);
                 return result;
             }
 
@@ -86,10 +89,10 @@ public class TextParsingService : ITextParsingService
         var result = new ValidationResult { IsValid = true };
 
         // Basic content validation
-        if (!ValidationRules.IsContentValid(content))
+        if (!_validationRules.IsContentValid(content))
         {
             result.IsValid = false;
-            result.Errors.Add(ValidationRules.EMPTY_CONTENT_ERROR);
+            result.Errors.Add(_validationRules.GetMessages().EmptyContentError);
             return result;
         }
 

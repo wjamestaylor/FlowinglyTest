@@ -1,6 +1,7 @@
 using TextParsingApi.Models;
 using TextParsingApi.Services;
 using TextParsingApi.Services.Implementation;
+using TextParsingApi.Validation;
 
 namespace TextParsingApi.Tests;
 
@@ -9,12 +10,14 @@ public class TextParsingIntegrationTests
     private readonly ITextParsingService _textParsingService;
     private readonly IXmlParsingService _xmlParsingService;
     private readonly ITaxCalculationService _taxCalculationService;
+    private readonly ValidationRules _validationRules;
 
     public TextParsingIntegrationTests()
     {
-        _xmlParsingService = new XmlParsingService();
+        _validationRules = new ValidationRules();
+        _xmlParsingService = new XmlParsingService(_validationRules);
         _taxCalculationService = new TaxCalculationService();
-        _textParsingService = new TextParsingService(_xmlParsingService, _taxCalculationService);
+        _textParsingService = new TextParsingService(_xmlParsingService, _taxCalculationService, _validationRules);
     }
 
     [Fact]

@@ -1,5 +1,6 @@
 using TextParsingApi.Services;
 using TextParsingApi.Services.Implementation;
+using TextParsingApi.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,10 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "Text Parsing API", Version = "v1" });
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "TextParsingApi.xml"));
 });
+
+// Register validation configuration
+builder.Services.AddSingleton<ValidationConfiguration>();
+builder.Services.AddScoped<ValidationRules>();
 
 // Register our services
 builder.Services.AddScoped<ITextParsingService, TextParsingService>();
