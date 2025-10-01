@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from './App';
 
@@ -17,6 +17,9 @@ import TextParsingApiService from './services/textParsingApi';
 const mockApiService = TextParsingApiService as jest.Mocked<typeof TextParsingApiService>;
 
 describe('Text Parsing App', () => {
+  // Suppress console.error during tests to avoid expected error messages
+  const originalError = console.error;
+
   beforeEach(() => {
     jest.clearAllMocks();
     // Mock successful connection by default
@@ -24,10 +27,20 @@ describe('Text Parsing App', () => {
       connected: true,
       message: 'Connected to API at https://localhost:7000'
     });
+
+    // Suppress console.error for cleaner test output
+    console.error = jest.fn();
   });
 
-  test('renders main app components', () => {
-    render(<App />);
+  afterEach(() => {
+    // Restore console.error after each test
+    console.error = originalError;
+  });
+
+  test('renders main app components', async () => {
+    await act(async () => {
+      render(<App />);
+    });
 
     // Check if main elements are present
     expect(screen.getByText('Text Parsing & XML Extraction')).toBeInTheDocument();
@@ -37,8 +50,10 @@ describe('Text Parsing App', () => {
     expect(screen.getByRole('button', { name: /clear/i })).toBeInTheDocument();
   });
 
-  test('loads sample data when Load Sample button is clicked', () => {
-    render(<App />);
+  test('loads sample data when Load Sample button is clicked', async () => {
+    await act(async () => {
+      render(<App />);
+    });
 
     const loadSampleButton = screen.getByRole('button', { name: /load sample/i });
     const textArea = screen.getByLabelText('Text Input') as HTMLTextAreaElement;
@@ -50,8 +65,10 @@ describe('Text Parsing App', () => {
     expect(textArea.value).toContain('<vendor>Seaside Steakhouse</vendor>');
   });
 
-  test('clears input when Clear button is clicked', () => {
-    render(<App />);
+  test('clears input when Clear button is clicked', async () => {
+    await act(async () => {
+      render(<App />);
+    });
 
     const textArea = screen.getByLabelText('Text Input') as HTMLTextAreaElement;
     const clearButton = screen.getByRole('button', { name: /clear/i });
@@ -65,14 +82,15 @@ describe('Text Parsing App', () => {
     expect(textArea.value).toBe('');
   });
 
-  test('shows validation error for empty input', () => {
-    render(<App />);
+  test('submit button is disabled for empty input', async () => {
+    await act(async () => {
+      render(<App />);
+    });
 
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
-    fireEvent.click(submitButton);
-
-    expect(screen.getByText('Please enter some text to parse')).toBeInTheDocument();
+    // Submit button should be disabled when input is empty
+    expect(submitButton).toBeDisabled();
   });
 
   test('calls API and displays results on successful parse', async () => {
@@ -105,18 +123,24 @@ describe('Text Parsing App', () => {
 
     mockApiService.parseText.mockResolvedValue(mockParseResult);
 
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
 
     const textArea = screen.getByLabelText('Text Input');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
     // Enter test data
-    fireEvent.change(textArea, {
-      target: { value: '<expense><total>35000</total></expense>' }
+    await act(async () => {
+      fireEvent.change(textArea, {
+        target: { value: '<expense><total>35000</total></expense>' }
+      });
     });
 
     // Submit
-    fireEvent.click(submitButton);
+    await act(async () => {
+      fireEvent.click(submitButton);
+    });
 
     // Wait for API call and results
     await waitFor(() => {
@@ -135,18 +159,24 @@ describe('Text Parsing App', () => {
     const mockError = new Error('API Error');
     mockApiService.parseText.mockRejectedValue(mockError);
 
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
 
     const textArea = screen.getByLabelText('Text Input');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
     // Enter test data
-    fireEvent.change(textArea, {
-      target: { value: 'Some invalid content' }
+    await act(async () => {
+      fireEvent.change(textArea, {
+        target: { value: 'Some invalid content' }
+      });
     });
 
     // Submit
-    fireEvent.click(submitButton);
+    await act(async () => {
+      fireEvent.click(submitButton);
+    });
 
     // Wait for error to be displayed
     await waitFor(() => {
@@ -156,8 +186,10 @@ describe('Text Parsing App', () => {
     expect(screen.getByText('An unexpected error occurred while parsing the text')).toBeInTheDocument();
   });
 
-  test('supports keyboard shortcut Ctrl+Enter for submit', () => {
-    render(<App />);
+  test('supports keyboard shortcut Ctrl+Enter for submit', async () => {
+    await act(async () => {
+      render(<App />);
+    });
 
     const textArea = screen.getByLabelText('Text Input');
 
@@ -165,14 +197,18 @@ describe('Text Parsing App', () => {
     fireEvent.change(textArea, { target: { value: 'Test content' } });
 
     // Trigger Ctrl+Enter
-    fireEvent.keyDown(textArea, { key: 'Enter', ctrlKey: true });
+    await act(async () => {
+      fireEvent.keyDown(textArea, { key: 'Enter', ctrlKey: true });
+    });
 
     // Should trigger API call (would be verified by mock being called)
     expect(mockApiService.parseText).toHaveBeenCalled();
   });
 
-  test('displays instructions when no results are present', () => {
-    render(<App />);
+  test('displays instructions when no results are present', async () => {
+    await act(async () => {
+      render(<App />);
+    });
 
     expect(screen.getByText('How to Use')).toBeInTheDocument();
     expect(screen.getByText('📝 Input Text')).toBeInTheDocument();

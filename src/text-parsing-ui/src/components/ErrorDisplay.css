@@ -1,55 +1,127 @@
+/* ==========================================================================
+   Error Display Component (Using Design System)
+   ========================================================================== */
+
 .error-display {
-  background: linear-gradient(135deg, #fee, #fdd);
-  border: 1px solid #f5c6cb;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 16px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--color-error-light), #fdd);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+  box-shadow: var(--shadow-sm);
 }
 
 .error-header {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-3);
 }
 
 .error-icon {
-  font-size: 20px;
-  margin-right: 8px;
+  font-size: var(--font-size-xl);
+  margin-right: var(--space-2);
+  color: var(--color-error);
 }
 
 .error-title {
-  color: #721c24;
+  color: var(--color-error-dark);
   margin: 0;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
 }
 
 .error-list {
   margin: 0;
-  padding-left: 20px;
-  color: #721c24;
+  padding-left: var(--space-5);
+  color: var(--color-error-dark);
 }
 
 .error-item {
-  margin-bottom: 4px;
-  line-height: 1.5;
+  margin-bottom: var(--space-1);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-sm);
 }
 
 .error-item:last-child {
   margin-bottom: 0;
 }
 
+/* ==========================================================================
+   VARIANTS
+   ========================================================================== */
+
 /* Compact variant */
 .error-display.compact {
-  padding: 12px;
-  margin: 8px 0;
+  padding: var(--space-3);
+  margin: var(--space-2) 0;
 }
 
 .error-display.compact .error-title {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .error-display.compact .error-list {
-  font-size: 14px;
+  font-size: var(--font-size-xs);
+}
+
+.error-display.compact .error-icon {
+  font-size: var(--font-size-lg);
+}
+
+/* Warning variant */
+.error-display.warning {
+  background: linear-gradient(135deg, var(--color-warning-light), #fff4d6);
+  border-color: var(--color-warning);
+}
+
+.error-display.warning .error-icon {
+  color: var(--color-warning);
+}
+
+.error-display.warning .error-title,
+.error-display.warning .error-list {
+  color: var(--color-warning-dark);
+}
+
+/* Info variant */
+.error-display.info {
+  background: linear-gradient(135deg, var(--color-info-light), #e3f2fd);
+  border-color: var(--color-info);
+}
+
+.error-display.info .error-icon {
+  color: var(--color-info);
+}
+
+.error-display.info .error-title,
+.error-display.info .error-list {
+  color: var(--color-info-dark);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .error-display {
+    padding: var(--space-3);
+    margin: var(--space-3) 0;
+  }
+
+  .error-header {
+    margin-bottom: var(--space-2);
+  }
+
+  .error-title {
+    font-size: var(--font-size-sm);
+  }
+
+  .error-list {
+    font-size: var(--font-size-xs);
+    padding-left: var(--space-4);
+  }
+
+  .error-icon {
+    font-size: var(--font-size-lg);
+  }
 }

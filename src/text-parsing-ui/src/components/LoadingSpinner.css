@@ -1,53 +1,34 @@
+/* ==========================================================================
+   Loading Spinner Component (Using Design System)
+   ========================================================================== */
+
 .loading-spinner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: var(--space-8);
+  color: var(--color-gray-500);
 }
 
 .spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  width: var(--space-12);
+  height: var(--space-12);
+  border: 3px solid var(--color-gray-200);
+  border-top: 3px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin var(--duration-slow) linear infinite;
+  margin-bottom: var(--space-4);
 }
 
-.loading-spinner.small .spinner {
-  width: 24px;
-  height: 24px;
-  border-width: 2px;
+.loading-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-600);
+  margin: 0;
 }
 
-.loading-spinner.medium .spinner {
-  width: 40px;
-  height: 40px;
-  border-width: 4px;
-}
-
-.loading-spinner.large .spinner {
-  width: 60px;
-  height: 60px;
-  border-width: 6px;
-}
-
-.loading-message {
-  margin-top: 16px;
-  color: #6c757d;
-  font-size: 16px;
-  text-align: center;
-}
-
-.loading-spinner.small .loading-message {
-  font-size: 14px;
-  margin-top: 8px;
-}
-
-.loading-spinner.large .loading-message {
-  font-size: 18px;
-  margin-top: 20px;
-}
-
+/* Spinner Animation */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -55,5 +36,138 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   VARIANTS
+   ========================================================================== */
+
+/* Small variant */
+.loading-spinner.small {
+  padding: var(--space-4);
+}
+
+.loading-spinner.small .spinner {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-width: 2px;
+  margin-bottom: var(--space-2);
+}
+
+.loading-spinner.small .loading-text {
+  font-size: var(--font-size-sm);
+}
+
+/* Medium variant (default) */
+.loading-spinner.medium .spinner {
+  width: var(--space-10);
+  height: var(--space-10);
+  border-width: 3px;
+}
+
+/* Large variant */
+.loading-spinner.large {
+  padding: var(--space-12);
+}
+
+.loading-spinner.large .spinner {
+  width: var(--space-16);
+  height: var(--space-16);
+  border-width: 4px;
+  margin-bottom: var(--space-6);
+}
+
+.loading-spinner.large .loading-text {
+  font-size: var(--font-size-lg);
+}
+
+/* Inline variant */
+.loading-spinner.inline {
+  flex-direction: row;
+  padding: var(--space-2);
+}
+
+.loading-spinner.inline .spinner {
+  width: var(--space-5);
+  height: var(--space-5);
+  margin-bottom: 0;
+  margin-right: var(--space-2);
+}
+
+.loading-spinner.inline .loading-text {
+  font-size: var(--font-size-sm);
+}
+
+/* ==========================================================================
+   COLOR VARIANTS
+   ========================================================================== */
+
+.loading-spinner.primary .spinner {
+  border-top-color: var(--color-primary);
+}
+
+.loading-spinner.success .spinner {
+  border-top-color: var(--color-success);
+}
+
+.loading-spinner.warning .spinner {
+  border-top-color: var(--color-warning);
+}
+
+.loading-spinner.error .spinner {
+  border-top-color: var(--color-error);
+}
+
+/* ==========================================================================
+   COMPATIBILITY WITH EXISTING COMPONENT
+   ========================================================================== */
+
+.loading-message {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-600);
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+.loading-spinner.small .loading-message {
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+
+.loading-spinner.large .loading-message {
+  font-size: var(--font-size-lg);
+  margin-top: var(--space-5);
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: var(--color-gray-400);
+  }
+
+  /* Show static indicator instead */
+  .spinner::after {
+    content: '⏳';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .spinner {
+    border-color: var(--color-black);
+    border-top-color: var(--color-primary);
+    border-width: 4px;
   }
 }
