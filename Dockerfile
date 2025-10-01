@@ -36,10 +36,9 @@ RUN chmod +x start.sh
 
 # Set environment variables for Railway
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV ASPNETCORE_URLS=http://+:5000
-ENV DOTNET_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://0.0.0.0:5000
 
-# Expose the port (Railway dynamically assigns PORT)
+# Expose the port
 EXPOSE 5000
 
 # Start the application using startup script

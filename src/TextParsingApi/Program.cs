@@ -10,7 +10,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Text Parsing API", Version = "v1" });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "TextParsingApi.xml"));
+    // XML documentation is optional
+    var xmlFile = Path.Combine(AppContext.BaseDirectory, "TextParsingApi.xml");
+    if (File.Exists(xmlFile))
+    {
+        c.IncludeXmlComments(xmlFile);
+    }
 });
 
 // Register validation configuration
@@ -45,6 +50,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Add startup logging
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("Starting TextParsingApp...");
+logger.LogInformation("Environment: {Environment}", app.Environment.EnvironmentName);
+logger.LogInformation("URLs: {Urls}", builder.Configuration["ASPNETCORE_URLS"] ?? "default");
+
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
@@ -67,12 +78,23 @@ app.UseCors("ReactApp");
 app.UseStaticFiles();
 
 // Add simple root health endpoint for Railway
-app.MapGet("/health", () => new { Status = "Healthy", Timestamp = DateTime.UtcNow });
+app.MapGet("/health", () => new {
+    Status = "Healthy",
+    Timestamp = DateTime.UtcNow,
+    Environment = app.Environment.EnvironmentName,
+    MachineName = Environment.MachineName,
+    ProcessId = Environment.ProcessId
+});
+
+// Add diagnostic endpoint
+app.MapGet("/ping", () => "pong");
 
 app.UseAuthorization();
 app.MapControllers();
 
 // Fallback routing for React SPA
 app.MapFallbackToFile("index.html");
+
+logger.LogInformation("Application configured successfully. Starting web host...");
 
 app.Run();

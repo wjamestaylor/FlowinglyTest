@@ -5,8 +5,8 @@
     "dockerfilePath": "Dockerfile"
   },
   "deploy": {
-    "startCommand": "dotnet TextParsingApi.dll",
-    "healthcheckPath": "/health",
+    "startCommand": "./start.sh",
+    "healthcheckPath": "/ping",
     "healthcheckTimeout": 300
   }
 }
