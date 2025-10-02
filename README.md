@@ -113,6 +113,8 @@ npm install && npm start
 
 ## **Demo**
 
+![Live Demo](https://flowinglytest-production.up.railway.app/)
+
 ![Application Screenshot](src/text-parsing-ui/public/AppExampleImage.png)
 
 ### **Sample Input**
