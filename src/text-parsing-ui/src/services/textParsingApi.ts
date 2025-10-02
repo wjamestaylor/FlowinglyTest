@@ -2,7 +2,10 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 import { ParseResult, ParseRequest, ApiError, ValidationError, ApiResponse } from '../types/api';
 
 // API Configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://localhost:7000';
+// In production, React app is served from the same origin as the API
+// So we can use relative URLs or detect the current origin
+const API_BASE_URL = process.env.REACT_APP_API_URL ||
+  (process.env.NODE_ENV === 'production' ? '' : 'https://localhost:7000');
 const API_TIMEOUT = 10000; // 10 seconds
 
 // Create axios instance with default configuration
