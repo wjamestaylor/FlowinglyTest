@@ -113,7 +113,7 @@ npm install && npm start
 
 ## **Demo**
 
-![Live Demo](https://flowinglytest-production.up.railway.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-2a9d8f?style=for-the-badge&logo=vercel&logoColor=white)](https://flowinglytest-production.up.railway.app/)
 
 ![Application Screenshot](src/text-parsing-ui/public/AppExampleImage.png)
 
