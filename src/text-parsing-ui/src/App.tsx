@@ -130,22 +130,6 @@ William`;
             {/* Reserved for future elements */}
           </div>
         </div>
-
-        {/* API Connection Status */}
-        <div className={`api-status ${apiConnected === null ? 'checking' : apiConnected ? 'connected' : 'disconnected'}`}>
-          {apiConnected === null && 'Checking API connection...'}
-          {apiConnected === true && '✓ Connected to API'}
-          {apiConnected === false && '✗ API Disconnected'}
-          {apiConnected === false && (
-            <button
-              onClick={checkApiConnection}
-              className="retry-button"
-              type="button"
-            >
-              Retry
-            </button>
-          )}
-        </div>
       </header>
 
       <main className="app-main">
