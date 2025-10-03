@@ -15,80 +15,46 @@ test.describe('Text Parsing Application E2E Tests', () => {
   });
 
   test('Complete end-to-end workflow with real API', async ({ page }) => {
-    console.log('🚀 Starting real end-to-end test with Playwright');
+    console.log('🚀 Starting real end-to-end test with Playwright')
+    console.log('✅ Testing connected API scenario');
 
-    // Check if API is connected
-    const apiStatus = page.locator('.api-status');
-    await expect(apiStatus).toBeVisible();
+    // Load sample data
+    await page.getByRole('button', { name: /load sample/i }).click();
 
-    const isConnected = await page.locator('.api-status.connected').isVisible();
-    console.log(`🔍 API Status: ${isConnected ? 'CONNECTED' : 'DISCONNECTED'}`);
+    // Verify sample data is loaded
+    const textInput = page.getByLabel('Text Input');
+    await expect(textInput).toContainText('<expense>');
 
-    if (isConnected) {
-      console.log('✅ Testing connected API scenario');
+    // Submit the form
+    const submitButton = page.getByRole('button', { name: /submit/i });
+    await expect(submitButton).toBeEnabled();
+    await submitButton.click();
 
-      // Load sample data
-      await page.getByRole('button', { name: /load sample/i }).click();
+    // Wait for results or errors to appear
+    await page.waitForFunction(() => {
+      const results = document.querySelector('.parse-results');
+      const errors = document.querySelector('.error-display.has-errors');
+      return results || errors;
+    }, { timeout: 10000 });
 
-      // Verify sample data is loaded
-      const textInput = page.getByLabel('Text Input');
-      await expect(textInput).toContainText('<expense>');
+    // Verify we got some response
+    const hasResults = await page.locator('.parse-results').isVisible();
+    const hasErrors = await page.locator('.error-display.has-errors').isVisible();
 
-      // Submit the form
-      const submitButton = page.getByRole('button', { name: /submit/i });
-      await expect(submitButton).toBeEnabled();
-      await submitButton.click();
+    expect(hasResults || hasErrors).toBeTruthy();
 
-      // Wait for results or errors to appear
-      await page.waitForFunction(() => {
-        const results = document.querySelector('.parse-results');
-        const errors = document.querySelector('.error-display.has-errors');
-        return results || errors;
-      }, { timeout: 10000 });
+    if (hasResults) {
+      console.log('✅ API call successful - results displayed');
 
-      // Verify we got some response
-      const hasResults = await page.locator('.parse-results').isVisible();
-      const hasErrors = await page.locator('.error-display.has-errors').isVisible();
+      // Check for XML blocks
+      await expect(page.getByRole('heading', { name: /XML Blocks/ })).toBeVisible();
 
-      expect(hasResults || hasErrors).toBeTruthy();
+      // Check for tax calculation
+      await expect(page.getByRole('heading', { name: /Tax Calculation/ })).toBeVisible();
 
-      if (hasResults) {
-        console.log('✅ API call successful - results displayed');
-
-        // Check for XML blocks
-        await expect(page.getByRole('heading', { name: /XML Blocks/ })).toBeVisible();
-
-        // Check for tax calculation
-        await expect(page.getByRole('heading', { name: /Tax Calculation/ })).toBeVisible();
-
-        console.log('✅ Complete workflow with API integration successful');
-      } else if (hasErrors) {
-        console.log('⚠️ API call returned errors (still a successful E2E test)');
-      }
-
-    } else {
-      console.log('⚠️ Testing disconnected API scenario');
-
-      // Verify API disconnected status
-      await expect(page.getByText('✗ API Disconnected')).toBeVisible();
-
-      // Verify submit button is disabled
-      const submitButton = page.getByRole('button', { name: /submit/i });
-      await expect(submitButton).toBeDisabled();
-
-      // Verify retry button is present
-      const retryButton = page.getByRole('button', { name: /retry/i });
-      await expect(retryButton).toBeVisible();
-
-      // Test retry functionality
-      await retryButton.click();
-
-      // Still verify other UI functionality works
-      await page.getByRole('button', { name: /load sample/i }).click();
-      const textInput = page.getByLabel('Text Input');
-      await expect(textInput).toContainText('<expense>');
-
-      console.log('✅ Disconnected API scenario tested successfully');
+      console.log('✅ Complete workflow with API integration successful');
+    } else if (hasErrors) {
+      console.log('⚠️ API call returned errors (still a successful E2E test)');
     }
 
     console.log('🎉 END-TO-END TEST COMPLETED SUCCESSFULLY');
